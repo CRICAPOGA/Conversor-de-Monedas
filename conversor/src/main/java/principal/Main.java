@@ -9,7 +9,15 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * Main class that runs the currency conversion program.
+ */
 public class Main {
+    /**
+     * Main method that starts the program execution.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -23,13 +31,17 @@ public class Main {
             Gson gson = new Gson();
             ExchangeRates rates = gson.fromJson(json, ExchangeRates.class);
 
-
             executeMenu(rates);
         } catch (Exception e) {
             System.out.println("There was an error: " + e.getMessage());
         }
     }
 
+    /**
+     * Executes the options menu for currency conversion.
+     *
+     * @param rates The obtained exchange rates.
+     */
     private static void executeMenu(ExchangeRates rates) {
         Scanner sc = new Scanner(System.in);
         int option;
@@ -61,6 +73,9 @@ public class Main {
         sc.close();
     }
 
+    /**
+     * Displays the options menu to the user.
+     */
     private static void showMenu() {
         System.out.println("\n\n==================================");
         System.out.println("          CURRENCY CONVERTER");
@@ -73,6 +88,12 @@ public class Main {
         System.out.print("Select an option: ");
     }
 
+    /**
+     * Reads the option selected by the user.
+     *
+     * @param sc The Scanner object to read user input.
+     * @return The selected option.
+     */
     private static int readOption(Scanner sc) {
         while (!sc.hasNextInt()) {
             System.out.print("Please enter a valid number: ");
@@ -81,6 +102,11 @@ public class Main {
         return sc.nextInt();
     }
 
+    /**
+     * Converts an amount of dollars to euros.
+     *
+     * @param rates The obtained exchange rates.
+     */
     private static void convertDollarToEuro(ExchangeRates rates) {
         double usd;
         double eur = rates.usd.get("eur");
@@ -92,6 +118,11 @@ public class Main {
         System.out.println(usd + " USD = " + (eur*usd) + " EUR");
     }
 
+    /**
+     * Converts an amount of dollars to bitcoins.
+     *
+     * @param rates The obtained exchange rates.
+     */
     private static void convertDollarToBitcoin(ExchangeRates rates) {
         System.out.println("You selected: Convert Dollar to Bitcoin");
         double usd;
@@ -103,6 +134,11 @@ public class Main {
         System.out.println(usd + " USD = " + (btc * usd) + " BTC");
     }
 
+    /**
+     * Converts an amount of dollars to yen.
+     *
+     * @param rates The obtained exchange rates.
+     */
     private static void convertDollarToYen(ExchangeRates rates) {
         System.out.println("You selected: Convert Dollar to Yen");
         double usd;
